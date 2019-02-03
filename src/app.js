@@ -91,10 +91,10 @@ function setup(){
     resetBtn.interactive = true;
     resetBtn.on("click", reset);
     resetBtn.on("mouseover", function(){
-        resetBtn.scale.set(1.1);
+        resetBtn.hovering = true;
   });
     resetBtn.on("mouseout", function(){
-      resetBtn.scale.set(1);
+        resetBtn.hovering = false;
   });
   app.stage.addChildAt(resetBtn, app.stage.children.length);
 
@@ -120,6 +120,16 @@ function gameLoop(delta){
   if(dino.dead && speed === 0){
         resetBtn.visible = true;
         resetBtn.y = lerp(resetBtn.y, app.renderer.height/2, 0.1);
+        if(resetBtn.hovering){
+            let scale = resetBtn.getBounds().width / resetBtn.getLocalBounds().width;
+            scale = lerp(scale, 1.1, 0.1);
+            resetBtn.scale.set(scale);
+        }else{
+            let scale = resetBtn.getBounds().width / resetBtn.getLocalBounds().width;
+            scale = lerp(scale, 1, 0.1);
+            resetBtn.scale.set(scale);
+
+        }
   }
   if(restarting){
       speed = lerp(speed, 5, 0.08);
