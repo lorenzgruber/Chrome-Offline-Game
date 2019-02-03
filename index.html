@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title>PIXI Test</title>
     <link rel="stylesheet" href="src/style/style.css">
+    <link rel="stylesheet" href="src/style/loader.css">
     <script type="text/javascript" src="src/lib/pixi.min.js"></script>
   </head>
   <body>
@@ -12,5 +13,16 @@
     <script type="text/javascript" src="src/scroller.js"></script>
     <script type="text/javascript" src="src/obstacle.js"></script>
     <script type="text/javascript" src="src/keyboard.js"></script>
+    <div class="container">
+      <div class="loader" id="loader">
+        <img src="assets/back_loader.png" alt="" class="loader-back pop-up-animation">
+        <div class="loader-progress pop-up-animation" id="loader-progress">
+          <div class="shine" id="shine"></div>
+        </div>
+        <img src="assets/body_loader.png" alt="" class="loader-body pop-up-animation">
+        <img src="assets/dino_loader.png" alt="" class="loader-dino pop-up-animation">
+        <img src="assets/sparkle_loader.png" alt="" class="loader-sparkle pop-up-animation">
+      </div>
+    </div>
   </body>
 </html>

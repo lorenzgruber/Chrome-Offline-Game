@@ -9,7 +9,7 @@ class ObstacleManager{
 
         }
         this.obstacles.y = app.renderer.height;
-        this.obstacles.x = app.renderer.width * 1.5;
+        this.obstacles.x = app.renderer.width * 3;
         app.stage.addChildAt(this.obstacles, app.stage.children.length - 2);
     }
 

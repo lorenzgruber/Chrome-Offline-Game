@@ -4,6 +4,7 @@ app.renderer.view.style.position = "absolute";
 app.renderer.view.style.display = "block";
 app.renderer.autoResize = true;
 app.renderer.resize(window.innerWidth, window.innerHeight);
+app.view.id = "game-canvas";
 
 document.body.appendChild(app.view);
 
@@ -40,8 +41,33 @@ PIXI.loader
     "assets/sky.png",
     "assets/SpriteSheet.json",
     "assets/rm_playtime_solid.ttf"
-  ])
-  .load(setup);
+  ]).on("progress", loadProgressHandler)
+  .load(setTimeout(closeLoader, 2250));
+
+function loadProgressHandler(loader, resource) {
+    let progress = (loader.progress / 100) * 80;
+    document.getElementById("loader-progress").style.width = progress + "%";
+    if(progress === 80){
+        setTimeout(function(){
+            document.getElementById("shine").style.opacity = 1;
+            document.getElementById("shine").style.left = "120%";
+        }, 1500);
+    }
+}
+
+function closeLoader(){
+    let parent = document.getElementById("loader");
+    for(let i = 0; i < parent.children.length; i++){
+        let child = parent.children[i];
+        child.classList.remove("pop-up-animation");
+        child.classList.add("close-animation");
+        child.style.animationDelay = 0.3 * (parent.children.length-i) + "s";
+    }
+    setup();
+    setTimeout(function(){
+        document.getElementById("game-canvas").style.top = 0;
+    },500);
+}
 
 function setup(){
     speed = 3;
@@ -87,7 +113,9 @@ function gameLoop(delta){
   dino.checkCollision(obstacle);
   if(!dino.dead){
       dist += 0.05 * delta * speed;
-      score.text = Math.floor(dist) + " m";
+      if(Math.floor(dist) % 5 === 0){
+          score.text = Math.floor(dist) + " m";
+      }
   }
     if(dino.dead && speed === 0){
         resetBtn.visible = true;
