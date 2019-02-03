@@ -39,13 +39,11 @@ window.WebFontConfig = {
 setTimeout(function(){
     PIXI.loader
         .add([
-            "assets/sky.png",
             "assets/SpriteSheet.json",
-            "assets/rm_playtime_solid.ttf"
+            "assets/sky.png"
         ]).on("progress", loadProgressHandler)
-        .load(setTimeout(closeLoader, 1300));
-},1500);
-
+        .load(closeLoader);
+},600);
 
 function loadProgressHandler(loader, resource) {
     let progress = (loader.progress / 100) * 80;
@@ -57,17 +55,19 @@ function loadProgressHandler(loader, resource) {
 }
 
 function closeLoader(){
-    let parent = document.getElementById("loader");
-    for(let i = 0; i < parent.children.length; i++){
-        let child = parent.children[i];
-        child.classList.remove("pop-up-animation");
-        child.classList.add("close-animation");
-        child.style.animationDelay = 0.3 * (parent.children.length-i) + "s";
-    }
-    setup();
     setTimeout(function(){
-        document.getElementById("game-canvas").style.top = 0;
-    },500);
+        let parent = document.getElementById("loader");
+        for(let i = 0; i < parent.children.length; i++){
+            let child = parent.children[i];
+            child.classList.remove("pop-up-animation");
+            child.classList.add("close-animation");
+            child.style.animationDelay = 0.3 * (parent.children.length-i) + "s";
+        }
+        setup();
+        setTimeout(function(){
+            document.getElementById("game-canvas").style.top = 0;
+        },500);
+    },1300);
 }
 
 function setup(){
