@@ -14,6 +14,7 @@ body{
     left: 50%;
     transform: translate(-50%,-50%);
     z-index: 100;
+    pointer-events: none;
 }
 
 .loader{
@@ -79,11 +80,11 @@ body{
     transform: rotate(25deg);
     width: 10%;
     height: 140%;
-    left: -20%;
+    left: -50%;
     top: -20%;
     box-shadow: inset 5px 0 0 #3F3B5E;
     border-left: 5px solid white;
-    transition: 0.8s ease-in-out;
+    transition: 1s ease-in-out;
 }
 
 .pop-up-animation{

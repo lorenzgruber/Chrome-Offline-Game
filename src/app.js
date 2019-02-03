@@ -44,17 +44,15 @@ setTimeout(function(){
             "assets/rm_playtime_solid.ttf"
         ]).on("progress", loadProgressHandler)
         .load(setTimeout(closeLoader, 1300));
-},1000);
+},1500);
 
 
 function loadProgressHandler(loader, resource) {
     let progress = (loader.progress / 100) * 80;
     document.getElementById("loader-progress").style.width = progress + "%";
     if(progress === 80){
-        setTimeout(function(){
             document.getElementById("shine").style.opacity = 1;
             document.getElementById("shine").style.left = "120%";
-        }, 500);
     }
 }
 
