@@ -22,6 +22,12 @@ class ObstacleManager{
             }
             this.obstacles.x = app.renderer.width + speed * 100 + Math.random() * 200 * speed;
             this.obstacles.y = app.renderer.height;
+
+            if(restarting ){
+                this.obstacles.x = app.renderer.width * 3;
+                dino.dino.destroy();
+                dino = new Dino();
+            }
             if(speed < 8){
                 speed += 0.05;
                 dino.dino.animationSpeed = 0.35 * speed / 2;

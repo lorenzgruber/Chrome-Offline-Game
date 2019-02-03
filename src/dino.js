@@ -2,15 +2,20 @@ class Dino{
     constructor() {
         this.dino = new PIXI.extras.AnimatedSprite(sheet.animations["Dino"]);
         this.dino.scale.set(0.48);
-        this.dino.position.set(100, app.renderer.height - this.dino.height * 1.1);
+        if(restarting){
+            this.dino.position.set(-app.renderer.width/2, app.renderer.height - this.dino.height * 1.1);
+            restarting = false;
+        }else{
+            this.dino.position.set(100, app.renderer.height - this.dino.height * 1.1);
+        }
         this.dino.animationSpeed = 0.35 * speed / 2;
         this.dino.play();
-        app.stage.addChildAt(this.dino, app.stage.children.length - 2);
+        app.stage.addChildAt(this.dino, app.stage.children.length - 5);
 
         this.dinoDead = new PIXI.Sprite(sheet.textures["Dino_dead.png"]);
         this.dinoDead.scale.set(0.7);
         this.dinoDead.visible = false;
-        app.stage.addChildAt(this.dinoDead, app.stage.children.length - 2);
+        app.stage.addChildAt(this.dinoDead, app.stage.children.length - 5);
 
         this.vy = 0;
         this.vx = 0;
@@ -45,6 +50,17 @@ class Dino{
                 speed = 0;
             }
             this.dino.x += this.vx;
+        }
+
+        if(restarting){
+            this.dino.x -= 5.5 * speed;
+        }
+
+        if(this.dino.x < 100 && !restarting){
+            this.dino.x = lerp(this.dino.x, 100, 0.02);
+            if(this.dino.x >= 99){
+                this.dino.x = 100;
+            }
         }
     }
 

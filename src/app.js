@@ -16,7 +16,7 @@ let score;
 let resetBtn;
 let speed;
 let dist;
-let retries = 0;
+let restarting = false;
 
 window.WebFontConfig = {
     google: {
@@ -75,7 +75,6 @@ function setup(){
     dist = 0;
   sheet = PIXI.loader.resources["assets/SpriteSheet.json"].spritesheet;
   scroller = new Scroller();
-  dino = new Dino();
   obstacle = new ObstacleManager();
 
   let style = new PIXI.TextStyle({fill: "white", fontSize: 50, fontFamily: "Fredoka One"});
@@ -86,7 +85,7 @@ function setup(){
 
     resetBtn = new PIXI.Sprite(sheet.textures["retry.png"]);
     resetBtn.anchor.set(0.5);
-    resetBtn.position.set(app.renderer.width/2, app.renderer.height*1.5);
+    resetBtn.position.set(app.renderer.width/2, app.renderer.height+resetBtn.height*2);
     resetBtn.visible = false;
     resetBtn.buttonMode = true;
     resetBtn.interactive = true;
@@ -102,9 +101,9 @@ function setup(){
   let space = keyboard(32);
   space.press = () => dino.jump();
 
-  if(retries === 0){
-      app.ticker.add(delta => gameLoop(delta));
-  }
+  dino = new Dino();
+
+  app.ticker.add(delta => gameLoop(delta));
 }
 
 function gameLoop(delta){
@@ -112,25 +111,28 @@ function gameLoop(delta){
   obstacle.update();
   scroller.update();
   dino.checkCollision(obstacle);
-  if(!dino.dead){
+  if(!dino.dead && !restarting){
       dist += 0.05 * delta * speed;
       if(Math.floor(dist) % 5 === 0){
           score.text = Math.floor(dist) + " m";
       }
   }
-    if(dino.dead && speed === 0){
+  if(dino.dead && speed === 0){
         resetBtn.visible = true;
         resetBtn.y = lerp(resetBtn.y, app.renderer.height/2, 0.1);
-    }
+  }
+  if(restarting){
+      speed = lerp(speed, 5, 0.08);
+      if(speed >= 3){
+          speed = 3;
+      }
+      resetBtn.y = lerp(resetBtn.y, app.renderer.height+resetBtn.height*2, 0.1);
+  }
 }
 
 function reset(){
-    resetBtn.destroy();
-    for(child of app.stage.children){
-        child.destroy();
-    }
-    retries ++;
-    setup();
+    restarting = true;
+    dist = 0;
 }
 
 function lerp (value1, value2, amount) {
