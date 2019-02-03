@@ -63,7 +63,7 @@ body{
 .loader-progress{
     position: absolute;
     background-color: #3F3B5E;
-    width: 0%;
+    width: 0;
     height: 17%;
     bottom: 11%;
     left: 10%;

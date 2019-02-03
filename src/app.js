@@ -36,13 +36,16 @@ window.WebFontConfig = {
     s.parentNode.insertBefore(wf, s);
 })();
 
-PIXI.loader
-  .add([
-    "assets/sky.png",
-    "assets/SpriteSheet.json",
-    "assets/rm_playtime_solid.ttf"
-  ]).on("progress", loadProgressHandler)
-  .load(setTimeout(closeLoader, 2250));
+setTimeout(function(){
+    PIXI.loader
+        .add([
+            "assets/sky.png",
+            "assets/SpriteSheet.json",
+            "assets/rm_playtime_solid.ttf"
+        ]).on("progress", loadProgressHandler)
+        .load(setTimeout(closeLoader, 1300));
+},1000);
+
 
 function loadProgressHandler(loader, resource) {
     let progress = (loader.progress / 100) * 80;
@@ -51,7 +54,7 @@ function loadProgressHandler(loader, resource) {
         setTimeout(function(){
             document.getElementById("shine").style.opacity = 1;
             document.getElementById("shine").style.left = "120%";
-        }, 1500);
+        }, 500);
     }
 }
 
