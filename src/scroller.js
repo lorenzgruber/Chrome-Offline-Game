@@ -6,6 +6,8 @@ class Scroller{
     this.dunesB = new PIXI.extras.TilingSprite(sheet.textures["dunes_background.png"], app.renderer.width, 235);
     this.sun = new PIXI.Sprite(sheet.textures["sun.png"]);
     this.sky = new PIXI.Sprite(PIXI.loader.resources["assets/sky.png"].texture);
+    this.sky.width = window.innerWidth;
+    this.sky.height = window.innerHeight;
     this.clouds = new PIXI.Container();
     this.decorations = new PIXI.Container();
 
