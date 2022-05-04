@@ -18,7 +18,7 @@ let speed;
 let dist;
 let restarting = false;
 
-const TICK_RATE = 16.66;  // 1000/16.66 = 60 fps
+const TICK_RATE = 16;
 let lastUpdate = 0;
 
 window.WebFontConfig = {
